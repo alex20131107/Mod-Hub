@@ -31,6 +31,9 @@
             border-bottom: 4px solid #4cc9f0;
             border-radius: 0 0 10px 10px;
             margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
@@ -54,6 +57,14 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+        }
+        
+        .visit-counter {
+            background-color: rgba(76, 201, 240, 0.2);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+            border: 1px solid #4cc9f0;
         }
         
         nav {
@@ -226,7 +237,7 @@
             border-radius: 10px 10px 0 0;
         }
         
-        .language-section {
+        .category-section {
             display: flex;
             justify-content: center;
             gap: 20px;
@@ -234,7 +245,7 @@
             flex-wrap: wrap;
         }
         
-        .language-card {
+        .category-card {
             background: rgba(0, 0, 0, 0.6);
             padding: 20px;
             border-radius: 10px;
@@ -243,7 +254,7 @@
             border: 1px solid #4cc9f0;
         }
         
-        .language-card h3 {
+        .category-card h3 {
             color: #4cc9f0;
             margin-bottom: 10px;
         }
@@ -262,6 +273,11 @@
             .hero h2 {
                 font-size: 2rem;
             }
+            
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
     </style>
 </head>
@@ -271,6 +287,9 @@
             <div class="logo">
                 <div class="logo-img">M</div>
                 <h1>Minecraft Mod Hub</h1>
+            </div>
+            <div class="visit-counter" id="visitCounter">
+                Посещений: загрузка...
             </div>
         </header>
         
@@ -287,27 +306,27 @@
         
         <section class="hero">
             <h2>Лучшие моды для Minecraft</h2>
-            <p>Загружайте, скачивайте и делитесь модами, созданными на различных языках программирования. Присоединяйтесь к сообществу из более чем 1 миллиона игроков!</p>
+            <p>Загружайте, скачивайте и делитесь модами. Присоединяйтесь к сообществу из более чем 1 миллиона игроков!</p>
             <button class="btn" id="uploadBtn">Загрузить мод</button>
             <a href="#mods" class="btn">Смотреть моды</a>
         </section>
         
-        <div class="language-section">
-            <div class="language-card">
-                <h3>Java</h3>
-                <p>Официальные моды для Minecraft</p>
+        <div class="category-section">
+            <div class="category-card">
+                <h3>Геймплей</h3>
+                <p>Моды, изменяющие игровой процесс</p>
             </div>
-            <div class="language-card">
-                <h3>JavaScript</h3>
-                <p>Веб-инструменты и утилиты</p>
+            <div class="category-card">
+                <h3>Графика</h3>
+                <p>Улучшения визуальной составляющей</p>
             </div>
-            <div class="language-card">
-                <h3>C++</h3>
-                <p>Производительные моды</p>
+            <div class="category-card">
+                <h3>Инструменты</h3>
+                <p>Полезные утилиты и помощники</p>
             </div>
-            <div class="language-card">
-                <h3>C#</h3>
-                <p>Моды и инструменты</p>
+            <div class="category-card">
+                <h3>Приключения</h3>
+                <p>Новые миры и квесты</p>
             </div>
         </div>
         
@@ -320,7 +339,7 @@
                     <h3>OptiFine</h3>
                     <p>Улучшает производительность игры, добавляет поддержку HD текстур и настраиваемые графические опции.</p>
                     <div class="mod-stats">
-                        <span>Java</span>
+                        <span>Для версии: 1.12+</span>
                         <span>★ 4.9</span>
                     </div>
                 </div>
@@ -332,7 +351,7 @@
                     <h3>JourneyMap</h3>
                     <p>Карта в реальном времени, которая помогает ориентироваться в мире Minecraft.</p>
                     <div class="mod-stats">
-                        <span>JavaScript</span>
+                        <span>Для версии: 1.15+</span>
                         <span>★ 4.7</span>
                     </div>
                 </div>
@@ -344,7 +363,7 @@
                     <h3>Biomes O' Plenty</h3>
                     <p>Добавляет более 80 новых биомов в игру, делая мир более разнообразным и интересным.</p>
                     <div class="mod-stats">
-                        <span>Java</span>
+                        <span>Для версии: 1.16+</span>
                         <span>★ 4.8</span>
                     </div>
                 </div>
@@ -356,7 +375,7 @@
                     <h3>Tinkers' Construct</h3>
                     <p>Расширенная система создания инструментов с возможностью кастомизации и улучшения.</p>
                     <div class="mod-stats">
-                        <span>C++</span>
+                        <span>Для версии: 1.12.2</span>
                         <span>★ 4.6</span>
                     </div>
                 </div>
@@ -368,7 +387,7 @@
                     <h3>Applied Energistics 2</h3>
                     <p>Система хранения на основе энергии и сетевых технологий для продвинутых игроков.</p>
                     <div class="mod-stats">
-                        <span>Java</span>
+                        <span>Для версии: 1.10+</span>
                         <span>★ 4.5</span>
                     </div>
                 </div>
@@ -380,7 +399,7 @@
                     <h3>Thaumcraft</h3>
                     <p>Добавляет магическую систему в игру с исследованиями, заклинаниями и волшебными предметами.</p>
                     <div class="mod-stats">
-                        <span>C#</span>
+                        <span>Для версии: 1.7.10</span>
                         <span>★ 4.7</span>
                     </div>
                 </div>
@@ -398,13 +417,26 @@
                 <textarea id="modDescription" placeholder="Опишите особенности вашего мода"></textarea>
             </div>
             <div class="form-group">
-                <label for="modLanguage">Язык программирования</label>
-                <select id="modLanguage">
-                    <option value="java">Java</option>
-                    <option value="javascript">JavaScript</option>
-                    <option value="cpp">C++</option>
-                    <option value="csharp">C#</option>
-                    <option value="other">Другой</option>
+                <label for="modVersion">Версия Minecraft</label>
+                <select id="modVersion">
+                    <option value="1.19">1.19</option>
+                    <option value="1.18">1.18</option>
+                    <option value="1.17">1.17</option>
+                    <option value="1.16">1.16</option>
+                    <option value="1.15">1.15</option>
+                    <option value="1.14">1.14</option>
+                    <option value="1.13">1.13</option>
+                    <option value="1.12">1.12</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="modCategory">Категория</label>
+                <select id="modCategory">
+                    <option value="gameplay">Геймплей</option>
+                    <option value="graphics">Графика</option>
+                    <option value="tools">Инструменты</option>
+                    <option value="adventure">Приключения</option>
+                    <option value="other">Другое</option>
                 </select>
             </div>
             <div class="form-group">
@@ -415,12 +447,26 @@
         </div>
         
         <footer>
-            <p>© 2025 Minecraft Mod Hub. Все права защищены.</p>
+            <p>© 2023 Minecraft Mod Hub. Все права защищены.</p>
             <p>Этот сайт не аффилирован с Mojang Studios или Microsoft.</p>
         </footer>
     </div>
 
     <script>
+        // Счетчик посещений
+        function updateVisitCounter() {
+            if (typeof(Storage) !== "undefined") {
+                if (localStorage.visitCount) {
+                    localStorage.visitCount = Number(localStorage.visitCount) + 1;
+                } else {
+                    localStorage.visitCount = 1;
+                }
+                document.getElementById("visitCounter").textContent = "Посещений: " + localStorage.visitCount;
+            } else {
+                document.getElementById("visitCounter").textContent = "LocalStorage не поддерживается";
+            }
+        }
+        
         // JavaScript для функциональности сайта
         document.getElementById('uploadBtn').addEventListener('click', function() {
             const form = document.getElementById('uploadForm');
@@ -437,20 +483,21 @@
         
         function uploadMod() {
             const name = document.getElementById('modName').value;
-            const language = document.getElementById('modLanguage').value;
+            const version = document.getElementById('modVersion').value;
             
             if (!name) {
                 alert('Пожалуйста, введите название мода');
                 return;
             }
             
-            alert(`Мод "${name}" на ${language} успешно загружен! (Это демо-функция)`);
+            alert(`Мод "${name}" для версии ${version} успешно загружен! (Это демо-функция)`);
             document.getElementById('uploadForm').style.display = 'none';
             
             // Очищаем форму
             document.getElementById('modName').value = '';
             document.getElementById('modDescription').value = '';
-            document.getElementById('modLanguage').value = 'java';
+            document.getElementById('modVersion').value = '1.19';
+            document.getElementById('modCategory').value = 'gameplay';
             document.getElementById('modFile').value = '';
         }
         
@@ -461,6 +508,11 @@
                 alert(`Вы выбрали мод: ${modName}. (Это демо-функция)`);
             });
         });
+        
+        // Обновляем счетчик при загрузке страницы
+        window.onload = function() {
+            updateVisitCounter();
+        };
     </script>
 </body>
-  </html>
+</html>
