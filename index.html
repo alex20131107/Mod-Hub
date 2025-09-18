@@ -1,1 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Mod Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-cube"></i>
+                <span>Minecraft Mod Hub</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Главная</a>
+                <a href="#mods" class="nav-link">Моды</a>
+                <a href="#upload" class="nav-link">Загрузить</a>
+                <div class="nav-auth" id="navAuth">
+                    <button class="btn btn-outline" onclick="showLogin()">Войти</button>
+                    <button class="btn btn-primary" onclick="showRegister()">Регистрация</button>
+                </div>
+                <div class="nav-user" id="navUser" style="display: none;">
+                    <span id="userName">Пользователь</span>
+                    <button class="btn btn-outline" onclick="logout()">Выйти</button>
+                </div>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
 
+    <!-- Главная страница -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Добро пожаловать в Minecraft Mod Hub</h1>
+                <p>Самая большая коллекция модов для Minecraft. Загружайте, скачивайте и делитесь своими творениями с сообществом!</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-large btn-primary" onclick="scrollToSection('mods')">
+                        Смотреть моды
+                    </button>
+                    <button class="btn btn-large btn-outline" onclick="scrollToSection('upload')">
+                        Загрузить мод
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <i class="fas fa-cubes"></i>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-download"></i>
+                <h3>Бесплатные моды</h3>
+                <p>Скачивайте лучшие моды совершенно бесплатно</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-upload"></i>
+                <h3>Простая загрузка</h3>
+                <p>Загружайте свои моды в несколько кликов</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users"></i>
+                <h3>Сообщество</h3>
+                <p>Присоединяйтесь к тысячам игроков</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Страница модов -->
+    <section id="mods" class="section">
+        <div class="container">
+            <h2>Каталог модов</h2>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Поиск модов...">
+                <select id="categoryFilter">
+                    <option value="">Все категории</option>
+                    <option value="gameplay">Геймплей</option>
+                    <option value="graphics">Графика</option>
+                    <option value="tools">Инструменты</option>
+                    <option value="adventure">Приключения</option>
+                </select>
+                <select id="versionFilter">
+                    <option value="">Все версии</option>
+                    <option value="1.21">1.21.x</option>
+                    <option value="1.20">1.20.x</option>
+                    <option value="1.19">1.19.x</option>
+                    <option value="1.18">1.18.x</option>
+                </select>
+                <button class="btn" onclick="searchMods()">Поиск</button>
+            </div>
+            <div id="modsContainer" class="mods-grid">
+                <!-- Моды будут загружены через JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Страница загрузки -->
+    <section id="upload" class="section">
+        <div class="container">
+            <h2>Загрузить новый мод</h2>
+            <div class="upload-form">
+                <div class="form-group">
+                    <label for="modName">Название мода *</label>
+                    <input type="text" id="modName" required>
+                </div>
+                <div class="form-group">
+                    <label for="modDescription">Описание *</label>
+                    <textarea id="modDescription" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="modCategory">Категория *</label>
+                    <select id="modCategory" required>
+                        <option value="">Выберите категорию</option>
+                        <option value="gameplay">Геймплей</option>
+                        <option value="graphics">Графика</option>
+                        <option value="tools">Инструменты</option>
+                        <option value="adventure">Приключения</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Версии Minecraft *</label>
+                    <div class="versions-grid">
+                        <label><input type="checkbox" name="version" value="1.21.8"> 1.21.8</label>
+                        <label><input type="checkbox" name="version" value="1.21.7"> 1.21.7</label>
+                        <label><input type="checkbox" name="version" value="1.21.6"> 1.21.6</label>
+                        <label><input type="checkbox" name="version" value="1.21.5"> 1.21.5</label>
+                        <label><input type="checkbox" name="version" value="1.21.4"> 1.21.4</label>
+                        <label><input type="checkbox" name="version" value="1.21.3"> 1.21.3</label>
+                        <label><input type="checkbox" name="version" value="1.21.2"> 1.21.2</label>
+                        <label><input type="checkbox" name="version" value="1.21.1"> 1.21.1</label>
+                        <label><input type="checkbox" name="version" value="1.21.0"> 1.21.0</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="modFile">Файл мода *</label>
+                    <input type="file" id="modFile" accept=".jar,.zip" required>
+                </div>
+                <button class="btn btn-primary" onclick="uploadMod()">Загрузить мод</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальные окна -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Вход в аккаунт</h2>
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Пароль</label>
+                <input type="password" id="loginPassword" required>
+            </div>
+            <button class="btn btn-primary" onclick="login()">Войти</button>
+            <p class="modal-switch">
+                Нет аккаунта? <a href="#" onclick="switchToRegister()">Зарегистрироваться</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Регистрация</h2>
+            <div class="form-group">
+                <label for="registerUsername">Имя пользователя</label>
+                <input type="text" id="registerUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="registerEmail">Email</label>
+                <input type="email" id="registerEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">Пароль</label>
+                <input type="password" id="registerPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="registerConfirm">Подтверждение пароля</label>
+                <input type="password" id="registerConfirm" required>
+            </div>
+            <button class="btn btn-primary" onclick="register()">Зарегистрироваться</button>
+            <p class="modal-switch">
+                Уже есть аккаунт? <a href="#" onclick="switchToLogin()">Войти</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="mods.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
