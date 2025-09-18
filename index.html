@@ -4,10 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft Mod Hub</title>
+    <meta name="theme-color" content="#4cc9f0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Уведомления -->
+    <div id="notification" class="notification hidden">
+        <span id="notificationText"></span>
+        <button onclick="hideNotification()">×</button>
+    </div>
+
+    <!-- Таскбар -->
+    <div class="taskbar" id="taskbar">
+        <div class="taskbar-left">
+            <div class="start-menu" onclick="toggleStartMenu()">
+                <i class="fas fa-cube"></i>
+                <span>Start</span>
+            </div>
+            <div class="quick-apps">
+                <button class="taskbar-app" onclick="showSection('home')" title="Главная">
+                    <i class="fas fa-home"></i>
+                </button>
+                <button class="taskbar-app" onclick="showSection('mods')" title="Моды">
+                    <i class="fas fa-cubes"></i>
+                </button>
+                <button class="taskbar-app" onclick="showSection('upload')" title="Загрузить">
+                    <i class="fas fa-upload"></i>
+                </button>
+            </div>
+        </div>
+        <div class="taskbar-center">
+            <div class="system-tray">
+                <span class="tray-item" id="visitCount">Посещения: 0</span>
+                <span class="tray-item" id="currentTime">00:00</span>
+                <span class="tray-item" id="currentDate">01.01.2024</span>
+            </div>
+        </div>
+        <div class="taskbar-right">
+            <div class="user-info" id="taskbarUser">
+                <span>Гость</span>
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Menu -->
+    <div class="start-menu-panel" id="startMenu">
+        <div class="start-menu-header">
+            <img src="assets/icons/icon-72x72.png" alt="Logo" class="start-menu-logo">
+            <h3>Minecraft Mod Hub</h3>
+        </div>
+        <div class="start-menu-apps">
+            <div class="app-tile" onclick="showSection('home')">
+                <i class="fas fa-home"></i>
+                <span>Главная</span>
+            </div>
+            <div class="app-tile" onclick="showSection('mods')">
+                <i class="fas fa-cubes"></i>
+                <span>Моды</span>
+            </div>
+            <div class="app-tile" onclick="showSection('upload')">
+                <i class="fas fa-upload"></i>
+                <span>Загрузить</span>
+            </div>
+            <div class="app-tile" onclick="auth.isAuthenticated() ? userDashboard.showDashboard() : showLogin()">
+                <i class="fas fa-chart-bar"></i>
+                <span>Dashboard</span>
+            </div>
+        </div>
+        <div class="start-menu-footer">
+            <div class="user-section">
+                <i class="fas fa-user"></i>
+                <span id="startMenuUser">Гость</span>
+            </div>
+            <button class="power-btn" onclick="logout()">
+                <i class="fas fa-power-off"></i>
+            </button>
+        </div>
+    </div>
+
     <!-- Навигация -->
     <nav class="navbar">
         <div class="nav-container">
@@ -40,6 +117,23 @@
             <div class="hero-content">
                 <h1>Добро пожаловать в Minecraft Mod Hub</h1>
                 <p>Самая большая коллекция модов для Minecraft. Загружайте, скачивайте и делитесь своими творениями с сообществом!</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-cubes"></i>
+                        <span id="totalMods">0</span>
+                        <small>Всего модов</small>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-download"></i>
+                        <span id="totalDownloads">0</span>
+                        <small>Загрузок</small>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span id="totalUsers">0</span>
+                        <small>Пользователей</small>
+                    </div>
+                </div>
                 <div class="hero-buttons">
                     <button class="btn btn-large btn-primary" onclick="scrollToSection('mods')">
                         Смотреть моды
@@ -70,6 +164,11 @@
                 <h3>Сообщество</h3>
                 <p>Присоединяйтесь к тысячам игроков</p>
             </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Безопасно</h3>
+                <p>Все моды проверяются на безопасность</p>
+            </div>
         </div>
     </section>
 
@@ -93,7 +192,9 @@
                     <option value="1.19">1.19.x</option>
                     <option value="1.18">1.18.x</option>
                 </select>
-                <button class="btn" onclick="searchMods()">Поиск</button>
+                <button class="btn" onclick="searchMods()">
+                    <i class="fas fa-search"></i> Поиск
+                </button>
             </div>
             <div id="modsContainer" class="mods-grid">
                 <!-- Моды будут загружены через JavaScript -->
@@ -139,10 +240,18 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="modFile">Файл мода *</label>
+                    <label for="modFile">Файл мода * (.jar или .zip, макс. 50MB)</label>
                     <input type="file" id="modFile" accept=".jar,.zip" required>
+                    <div class="file-progress" id="fileProgress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <span id="progressText">0%</span>
+                    </div>
                 </div>
-                <button class="btn btn-primary" onclick="uploadMod()">Загрузить мод</button>
+                <button class="btn btn-primary" onclick="startUpload()">
+                    <i class="fas fa-upload"></i> Загрузить мод
+                </button>
             </div>
         </div>
     </section>
@@ -196,6 +305,7 @@
 
     <script src="auth.js"></script>
     <script src="mods.js"></script>
+    <script src="upload.js"></script>
     <script src="dashboard.js"></script>
     <script src="script.js"></script>
 </body>
